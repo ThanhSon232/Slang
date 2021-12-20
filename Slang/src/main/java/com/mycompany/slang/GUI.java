@@ -34,7 +34,7 @@ public class GUI extends javax.swing.JFrame {
         this.addWindowListener(new java.awt.event.WindowAdapter() {
     @Override
     public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-        int n =JOptionPane.showConfirmDialog(new Frame(), 
+        int n =JOptionPane.showConfirmDialog(null, 
             "Are you sure you want to close this window?", "Close Window?", 
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE);

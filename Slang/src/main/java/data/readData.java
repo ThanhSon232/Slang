@@ -6,6 +6,7 @@ package data;
 import java.util.*;
 import java.io.*;
 import component.entry;
+import java.nio.file.Files;
 /**
  *
  * @author tranthanhson
@@ -47,6 +48,33 @@ public class readData {
     }catch(Exception e)
     {}
 }
+    public void addASlang(HashMap<String,Vector<String>> keyDef){
+           try{
+            FileWriter fileWriter = new FileWriter(file, false);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            PrintWriter printWriter = new PrintWriter(bufferedWriter);
+            printWriter.println("Slang`Defination");
+            for(Map.Entry<String,Vector<String>> entry : keyDef.entrySet()){
+                if(entry.getValue().size() > 1){
+                    String def = "";
+                for(int i = 0 ; i < entry.getValue().size(); i ++){
+                    if(i < entry.getValue().size() - 1){
+                    def = def + entry.getValue().get(i) + "| ";
+                    }
+                    else  {
+                    def = def + entry.getValue().get(i);
+                    }
+                }
+                printWriter.println(entry.getKey() + "`" +def);
+                }
+                else{
+                    printWriter.println(entry.getKey() + "`" + entry.getValue().get(0));
+                }
+            }
+            printWriter.close();
+                }catch(Exception e){}
+            
+    }
 
     public HashMap<String, Vector<String>> getKeyDef() {
         return keyDef;
@@ -56,5 +84,33 @@ public class readData {
         return defKey;
     }
     
+    public static void copyFile( File from, File to ) throws IOException {
+    Files.copy( from.toPath(), to.toPath() );
+} 
+    public void load(){
+         File temp = new File("originalSlang.txt");
+         file = new File("slang.txt");
+         try{
+             if(!temp.exists())
+                 copyFile(file,temp);
+                 
+            }catch(Exception e)
+            {} 
+    }
     
+    public void rename(){
+         File temp = new File("originalSlang.txt");
+         file = new File("slang.txt");
+         try{
+             if(!temp.exists())
+                 copyFile(temp,file);
+                 
+            }catch(Exception e)
+            {}
+    }
+    
+    public static void main(String[] args) {
+        readData data = new readData();
+        data.addASlang(data.getKeyDef());
+    }
 }

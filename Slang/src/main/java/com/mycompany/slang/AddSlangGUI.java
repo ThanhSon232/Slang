@@ -7,6 +7,8 @@ import data.readData;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author tranthanhson
@@ -19,19 +21,11 @@ public class AddSlangGUI extends javax.swing.JFrame {
      */
     public AddSlangGUI() {
         initComponents();
-        load();
+        data.load();
     }
-    public static void copyFile( File from, File to ) throws IOException {
-    Files.copy( from.toPath(), to.toPath() );
-} 
-    private void load(){
-         File temp = new File("slang.txt");
-         file = new File("newSlang.txt");
-         try{
-             copyFile(temp,file);
-            }catch(Exception e)
-            {} 
-    }
+
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,12 +37,12 @@ public class AddSlangGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
@@ -63,8 +57,6 @@ public class AddSlangGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Add a Slang");
-
-        jScrollPane1.setViewportView(jTextPane1);
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,6 +74,8 @@ public class AddSlangGUI extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jScrollPane1.setViewportView(jTextPane1);
 
         jMenu1.setText("Menu");
 
@@ -164,13 +158,13 @@ public class AddSlangGUI extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1)))))
-                .addContainerGap(56, Short.MAX_VALUE))
+                                .addComponent(jButton1))
+                            .addComponent(jScrollPane1))))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,8 +179,8 @@ public class AddSlangGUI extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jButton1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(112, 112, 112))))
@@ -247,8 +241,34 @@ public class AddSlangGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String key = jTextField1.getText();
+        String def = jTextPane1.getText();
+        if(key.trim().equals("") || def.trim().equals("")){
+        JOptionPane.showMessageDialog(this, "Keyword and defination must be filled.");
+        }
+        else{
+             int position = check(key,def);
+             if(position == -1){
+             JOptionPane.showMessageDialog(this, "Successfully added.");
+             }
+             else{
+            int n =JOptionPane.showConfirmDialog(null, 
+            "This existed in dictionary, do you wanna overwrite it?", "Alert", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+            if(n == JOptionPane.YES_OPTION){
+                data.getKeyDef().get(key).set(position, def);
+             }
+             }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private int check(String key, String def){
+        for(int i = 0 ; i < data.getKeyDef().get(key).size();i++){
+            if(data.getKeyDef().get(key).get(i).toLowerCase().equals(def.toLowerCase())) return i;
+        }
+        return -1;
+    }
     /**
      * @param args the command line arguments
      */
