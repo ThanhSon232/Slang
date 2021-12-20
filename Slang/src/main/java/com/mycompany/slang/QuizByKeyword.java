@@ -313,6 +313,7 @@ public class QuizByKeyword extends javax.swing.JFrame {
     }
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
+        jLabel4.setText("");
         boolean[] flag = {false,false,false,false};
         int position = generator.nextInt(4);
         setBlack();

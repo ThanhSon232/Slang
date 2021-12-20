@@ -29,10 +29,10 @@ public class QuizByDefination extends javax.swing.JFrame {
         int posUserAnswer;
         
         private void setBlack(){
-            jTextPane0.setForeground(Color.black);
+        jTextPane0.setForeground(Color.black);
         jTextPane1.setForeground(Color.black);
         jTextPane2.setForeground(Color.black);
-        jTextPane2.setForeground(Color.black);
+        jTextPane3.setForeground(Color.black);
     }
         
                     private void setColor(int i){
@@ -372,9 +372,10 @@ public class QuizByDefination extends javax.swing.JFrame {
     
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
+        jLabel4.setText("");
+        setBlack();
         boolean[] flag = {false,false,false,false};
         int position = generator.nextInt(4);
-        setBlack();
         Object randomValue = def[generator.nextInt(def.length)];
         jLabel3.setText((String)randomValue);
         question = (String)randomValue;
