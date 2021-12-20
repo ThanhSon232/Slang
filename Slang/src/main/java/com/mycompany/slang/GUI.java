@@ -67,6 +67,14 @@ public class GUI extends javax.swing.JFrame {
             }
         }
     }
+    
+    private void init1(){
+        for(Map.Entry<String,Vector<String>> entry : data.getDefKey().entrySet()){
+            for(String e : entry.getValue()){
+                dft.addRow(new Object[] {entry.getKey(),e});
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -289,6 +297,20 @@ public class GUI extends javax.swing.JFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
+        if(jComboBox1.getSelectedItem().equals("Defination")){
+            dft.setColumnCount(0);
+            dft.addColumn("Defination");
+            dft.addColumn("Keyword");
+            dft.setRowCount(0);
+            init1();
+        }
+        else {
+            dft.setColumnCount(0);
+            dft.addColumn("Keyword");
+            dft.addColumn("Defination");
+            dft.setRowCount(0);
+            init();
+        }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
@@ -348,6 +370,36 @@ public class GUI extends javax.swing.JFrame {
             else if(value.equals("")){
              dft.setRowCount(0);
                init();
+            }
+            else {
+                dft.setRowCount(0);
+                dft.addRow(new Object[]{value,"We don't know this word"});
+            }
+        }
+        else {
+        if(!value.equals("")){
+            try{
+            FileWriter fileWriter = new FileWriter(file, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            PrintWriter printWriter = new PrintWriter(bufferedWriter);
+            printWriter.println(value);
+            printWriter.close();
+                }catch(Exception e){}
+            }
+            if(jTextPane1.getText() == null) {
+                jTextPane1.setText(value + "\n");
+            }
+            else {
+               jTextPane1.setText(jTextPane1.getText() + value + "\n");
+            }
+            if(data.getDefKey().containsKey(value)){
+                dft.setRowCount(0);
+                for(String s : data.getDefKey().get(value))
+                dft.addRow(new Object[]{value,s});
+            }
+            else if(value.equals("")){
+             dft.setRowCount(0);
+               init1();
             }
             else {
                 dft.setRowCount(0);
