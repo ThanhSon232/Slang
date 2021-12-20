@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.slang;
+import data.readData;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,8 +16,22 @@ public class EditSlangGUI extends javax.swing.JFrame {
     /**
      * Creates new form AddSlangGUI
      */
+    readData data = new readData();
     public EditSlangGUI() {
         initComponents();
+                this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+    @Override
+    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+        int n =JOptionPane.showConfirmDialog(null, 
+            "Are you sure you want to close this window?", "Close Window?", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+        if (n == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+    }
+    });
     }
 
     /**
@@ -194,6 +211,18 @@ public class EditSlangGUI extends javax.swing.JFrame {
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
+                        jTextPane1.setText("");
+
+        String key = jTextField1.getText();
+//        jTextPane2.setText((String)randomValue);
+        if(data.getKeyDef().get((String)key) == null){
+            JOptionPane.showMessageDialog(this, "Not found");
+        }
+        else{
+        for(String s : data.getKeyDef().get((String)key)){
+            jTextPane1.setText(jTextPane1.getText() + "\n" + s + "\n");
+        }
+        }
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed

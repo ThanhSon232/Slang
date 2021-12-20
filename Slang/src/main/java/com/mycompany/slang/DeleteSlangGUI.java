@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.slang;
+import data.readData;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,10 +16,28 @@ public class DeleteSlangGUI extends javax.swing.JFrame {
     /**
      * Creates new form AddSlangGUI
      */
+    
+    readData data = new readData();
     public DeleteSlangGUI() {
         initComponents();
+        init();
     }
 
+    private void init(){
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+    @Override
+    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+        int n =JOptionPane.showConfirmDialog(null, 
+            "Are you sure you want to close this window?", "Close Window?", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+        if (n == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+    }
+    });
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,6 +54,7 @@ public class DeleteSlangGUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
@@ -60,7 +82,19 @@ public class DeleteSlangGUI extends javax.swing.JFrame {
 
         jLabel3.setText("DEFINATION:");
 
-        jButton1.setText("OK");
+        jButton1.setText("Find");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Delete");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Menu");
 
@@ -142,8 +176,11 @@ public class DeleteSlangGUI extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(163, 163, 163)
+                        .addComponent(jButton2)))
                 .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -160,7 +197,9 @@ public class DeleteSlangGUI extends javax.swing.JFrame {
                             .addComponent(jButton1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39))
+                        .addGap(4, 4, 4)
+                        .addComponent(jButton2)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(112, 112, 112))))
@@ -215,6 +254,61 @@ public class DeleteSlangGUI extends javax.swing.JFrame {
         quizByDefination.show();
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+                jTextPane1.setText("");
+
+        String key = jTextField1.getText();
+//        jTextPane2.setText((String)randomValue);
+        if(data.getKeyDef().get((String)key) == null){
+            JOptionPane.showMessageDialog(this, "Not found");
+        }
+        else{
+        for(String s : data.getKeyDef().get((String)key)){
+            jTextPane1.setText(jTextPane1.getText() + "\n" + s + "\n");
+        }
+        }
+  
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        String key = jTextField1.getText();
+        if(data.getKeyDef().get((String)key) == null){
+            JOptionPane.showMessageDialog(this, "Not found");
+        }
+        else{
+        String[] options = new String[] {"Delete", "Cancel"};
+                int response = JOptionPane.showOptionDialog(this, "Do you really wanna delete this?", "Alert",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    null, options, options[0]);
+                if(response == 0){
+                if(data.getKeyDef().get(key).size() > 1){
+                  String  test1= JOptionPane.showInputDialog(this,"Insert defination you want to delete.");
+                  if(test1.trim().equals("")){
+                       JOptionPane.showMessageDialog(this, "You must input something...");
+                  }
+                  else{
+                  boolean check = data.getKeyDef().get(key).remove(test1);
+                  if(check == true){
+                  JOptionPane.showMessageDialog(this, "Success");
+                  data.addASlang(data.getKeyDef());
+                  }
+                  else{
+                    JOptionPane.showMessageDialog(this, "Failed");
+
+                  }
+
+                  }
+                }
+
+                }
+                
+        }
+            
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -255,6 +349,7 @@ public class DeleteSlangGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

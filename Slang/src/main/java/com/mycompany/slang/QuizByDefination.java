@@ -7,6 +7,8 @@ package com.mycompany.slang;
 import data.readData;
 import java.awt.Color;
 import java.util.Random;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -75,6 +77,19 @@ public class QuizByDefination extends javax.swing.JFrame {
         
     public QuizByDefination() {
         initComponents();
+                this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+    @Override
+    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+        int n =JOptionPane.showConfirmDialog(null, 
+            "Are you sure you want to close this window?", "Close Window?", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+        if (n == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+    }
+    });
     }
 
     /**

@@ -7,6 +7,7 @@ import data.readData;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +23,19 @@ public class AddSlangGUI extends javax.swing.JFrame {
     public AddSlangGUI() {
         initComponents();
         data.load();
+                this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+    @Override
+    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+        int n =JOptionPane.showConfirmDialog(null, 
+            "Are you sure you want to close this window?", "Close Window?", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+        if (n == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+    }
+    });
     }
 
     
@@ -194,6 +208,19 @@ public class AddSlangGUI extends javax.swing.JFrame {
         ASlang aSlang = new ASlang();
         this.dispose();
         aSlang.show();
+                this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+    @Override
+    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+        int n =JOptionPane.showConfirmDialog(null, 
+            "Are you sure you want to close this window?", "Close Window?", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+        if (n == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+    }
+    });
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -257,7 +284,7 @@ public class AddSlangGUI extends javax.swing.JFrame {
              }
              else{
                 String[] options = new String[] {"Overwrite", "Duplicate", "Cancel"};
-                int response = JOptionPane.showOptionDialog(null, "This existed in database.", "Alert",
+                int response = JOptionPane.showOptionDialog(this, "This existed in database.", "Alert",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                     null, options, options[0]);
                 if(response == 0){
