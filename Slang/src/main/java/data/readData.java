@@ -19,15 +19,19 @@ public class readData {
         Vector<String> value = new Vector<String>();
         this.defKey.put(e, value);
     }
-    readData(){
+    public readData(){
     keyDef = new HashMap<String,Vector<String>>();
     defKey = new HashMap<String,Vector<String>>();
     file = new File("slang.txt");
     try{
     Scanner scanner = new Scanner(file);
-    scanner.nextLine();
+    int count = 0;
     while(scanner.hasNextLine()){
-        entry e = entry.parseEntry(scanner.nextLine());
+        String value = scanner.nextLine();
+        if(value.split("`").length == 1){
+        continue; 
+        }
+        entry e = entry.parseEntry(value);
         keyDef.put(e.getKeyword(), e.getDefination());
         for(String ex : e.getDefination()){
             if(!defKey.containsKey(ex)){
@@ -51,5 +55,6 @@ public class readData {
     public HashMap<String, Vector<String>> getDefKey() {
         return defKey;
     }
+    
     
 }

@@ -26,7 +26,7 @@ public class entry {
     this.Defination = E.getDefination();
     }
     
-        public static  entry parseEntry(String str) {
+        public static entry parseEntry(String str) {
         entry temp = new entry();
         String[] arrStr = str.split("`");
         temp.keyword = arrStr[0];
@@ -44,4 +44,5 @@ public class entry {
     public Vector<String> getDefination(){
         return Defination;
     }
+
 }

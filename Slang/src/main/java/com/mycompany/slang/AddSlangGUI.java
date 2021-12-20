@@ -3,18 +3,34 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.slang;
-
+import data.readData;
+import java.io.*;
+import java.nio.file.Files;
+import java.util.*;
 /**
  *
  * @author tranthanhson
  */
 public class AddSlangGUI extends javax.swing.JFrame {
-
+    readData data = new readData();
+    File file;
     /**
      * Creates new form AddSlangGUI
      */
     public AddSlangGUI() {
         initComponents();
+        load();
+    }
+    public static void copyFile( File from, File to ) throws IOException {
+    Files.copy( from.toPath(), to.toPath() );
+} 
+    private void load(){
+         File temp = new File("slang.txt");
+         file = new File("newSlang.txt");
+         try{
+             copyFile(temp,file);
+            }catch(Exception e)
+            {} 
     }
 
     /**
@@ -61,6 +77,11 @@ public class AddSlangGUI extends javax.swing.JFrame {
         jLabel3.setText("DEFINATION:");
 
         jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Menu");
 
@@ -223,6 +244,10 @@ public class AddSlangGUI extends javax.swing.JFrame {
         this.dispose();
         quizByDefination.show();
     }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
