@@ -249,23 +249,33 @@ public class AddSlangGUI extends javax.swing.JFrame {
         else{
              int position = check(key,def);
              if(position == -1){
+             Vector<String> temp = new Vector<String>();
+             temp.add(def);
+             data.getKeyDef().put(key, temp);
+             data.addASlang(data.getKeyDef());
              JOptionPane.showMessageDialog(this, "Successfully added.");
              }
              else{
-            int n =JOptionPane.showConfirmDialog(null, 
-            "This existed in dictionary, do you wanna overwrite it?", "Alert", 
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE);
-            if(n == JOptionPane.YES_OPTION){
-                data.getKeyDef().get(key).set(position, def);
-             }
+                String[] options = new String[] {"Overwrite", "Duplicate", "Cancel"};
+                int response = JOptionPane.showOptionDialog(null, "This existed in database.", "Alert",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    null, options, options[0]);
+                if(response == 0){
+                data.getKeyDef().get(key).clear();
+                data.getKeyDef().get(key).add(def);
+                data.addASlang(data.getKeyDef());
+                }
+                else if(response == 1){
+                data.getKeyDef().get(key).add(def);
+                data.addASlang(data.getKeyDef());
+                }
              }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private int check(String key, String def){
-        for(int i = 0 ; i < data.getKeyDef().get(key).size();i++){
-            if(data.getKeyDef().get(key).get(i).toLowerCase().equals(def.toLowerCase())) return i;
+        if(data.getKeyDef().containsKey(key)){
+        return 1;
         }
         return -1;
     }

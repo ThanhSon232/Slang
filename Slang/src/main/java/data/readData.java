@@ -84,33 +84,25 @@ public class readData {
         return defKey;
     }
     
-    public static void copyFile( File from, File to ) throws IOException {
-    Files.copy( from.toPath(), to.toPath() );
-} 
     public void load(){
          File temp = new File("originalSlang.txt");
          file = new File("slang.txt");
          try{
              if(!temp.exists())
-                 copyFile(file,temp);
-                 
+                    Files.copy( file.toPath(), temp.toPath() );   
             }catch(Exception e)
             {} 
     }
     
     public void rename(){
          File temp = new File("originalSlang.txt");
+         file.delete();
          file = new File("slang.txt");
          try{
-             if(!temp.exists())
-                 copyFile(temp,file);
-                 
+                    Files.copy( temp.toPath(), file.toPath() );
             }catch(Exception e)
             {}
     }
     
-    public static void main(String[] args) {
-        readData data = new readData();
-        data.addASlang(data.getKeyDef());
-    }
+    
 }
