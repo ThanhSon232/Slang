@@ -302,6 +302,17 @@ public class DeleteSlangGUI extends javax.swing.JFrame {
 
                   }
                 }
+                else{
+                 boolean check = data.getKeyDef().get(key).remove(data.getKeyDef().get(key).get(0));
+                  if(check == true){
+                  JOptionPane.showMessageDialog(this, "Success");
+                  data.addASlang(data.getKeyDef());
+                  }
+                  else{
+                    JOptionPane.showMessageDialog(this, "Failed");
+
+                  }
+                }
 
                 }
                 
