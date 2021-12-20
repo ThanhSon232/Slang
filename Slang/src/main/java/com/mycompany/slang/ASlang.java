@@ -11,6 +11,8 @@ import java.util.Random;
  */
 public class ASlang extends javax.swing.JFrame {
     readData data = new readData();
+            Random generator = new Random();
+        Object[] values = data.getKeyDef().keySet().toArray();
     /**
      * Creates new form ASlang
      */
@@ -225,10 +227,8 @@ public class ASlang extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        jTextPane1.setText("");
-        Random generator = new Random();
-        Object[] values = data.getKeyDef().keySet().toArray();
         Object randomValue = values[generator.nextInt(values.length)];
+        jTextPane1.setText("");
         jTextPane2.setText((String)randomValue);
         for(String s : data.getKeyDef().get((String)randomValue)){
             jTextPane1.setText(jTextPane1.getText() + "\n" + s + "\n");

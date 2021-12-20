@@ -4,12 +4,27 @@
  */
 package com.mycompany.slang;
 
+import java.util.Random;
+import data.readData;
+import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 /**
  *
  * @author tranthanhson
  */
 public class QuizByKeyword extends javax.swing.JFrame {
-
+        readData data = new readData();
+        Random generator = new Random();
+        Object[] key = data.getKeyDef().keySet().toArray();
+        Object[] def = data.getDefKey().keySet().toArray();
+        String question;
+        String answer;
+        int posAnswer;
+        int posUserAnswer;
+       
     /**
      * Creates new form QuizByKeyword
      */
@@ -28,20 +43,21 @@ public class QuizByKeyword extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextPane3 = new javax.swing.JTextPane();
-        jButton3 = new javax.swing.JButton();
+        jTextPane2 = new javax.swing.JTextPane();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextPane4 = new javax.swing.JTextPane();
-        jButton4 = new javax.swing.JButton();
+        jTextPane0 = new javax.swing.JTextPane();
+        jButton1 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTextPane5 = new javax.swing.JTextPane();
+        jTextPane1 = new javax.swing.JTextPane();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTextPane6 = new javax.swing.JTextPane();
-        jButton5 = new javax.swing.JButton();
+        jTextPane3 = new javax.swing.JTextPane();
+        jButton3 = new javax.swing.JButton();
+        jButton0 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
@@ -59,25 +75,48 @@ public class QuizByKeyword extends javax.swing.JFrame {
 
         jLabel2.setText("KEYWORD:");
 
-        jButton1.setText("Start");
+        jButton10.setText("Start");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("C");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jScrollPane3.setViewportView(jTextPane3);
+        jScrollPane3.setViewportView(jTextPane2);
 
-        jButton3.setText("A");
+        jScrollPane4.setViewportView(jTextPane0);
 
-        jScrollPane4.setViewportView(jTextPane4);
+        jButton1.setText("B");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("B");
+        jScrollPane5.setViewportView(jTextPane1);
 
-        jScrollPane5.setViewportView(jTextPane5);
+        jScrollPane6.setViewportView(jTextPane3);
 
-        jLabel3.setText("jLabel3");
+        jButton3.setText("D");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        jScrollPane6.setViewportView(jTextPane6);
-
-        jButton5.setText("D");
+        jButton0.setText("A");
+        jButton0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton0ActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Menu");
 
@@ -147,10 +186,12 @@ public class QuizByKeyword extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jButton1))
-                    .addComponent(jLabel1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton10)
+                            .addComponent(jLabel4))))
                 .addGap(181, 181, 181))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,9 +203,9 @@ public class QuizByKeyword extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton2)
-                            .addComponent(jButton4)
+                            .addComponent(jButton1)
                             .addComponent(jButton3)
-                            .addComponent(jButton5))
+                            .addComponent(jButton0))
                         .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -182,19 +223,21 @@ public class QuizByKeyword extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(jButton10))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(106, 106, 106)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))))
-                .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
+                .addGap(28, 28, 28)
+                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton0))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,8 +246,8 @@ public class QuizByKeyword extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(jButton3))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -248,7 +291,127 @@ public class QuizByKeyword extends javax.swing.JFrame {
         this.dispose();
         quizByDefination.show();
     }//GEN-LAST:event_jMenuItem10ActionPerformed
+    private void setBlack(){
+            jTextPane0.setForeground(Color.black);
+        jTextPane1.setForeground(Color.black);
+        jTextPane2.setForeground(Color.black);
+        jTextPane3.setForeground(Color.black);
+    }
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        boolean[] flag = {false,false,false,false};
+        int position = generator.nextInt(4);
+        setBlack();
+        Object randomValue = key[generator.nextInt(key.length)];
+        jLabel3.setText((String)randomValue);
+        question = (String)randomValue;
+        System.out.println(question);
+        posAnswer = position;
+        answer = data.getKeyDef().get(question).get(0);
+        System.out.println(answer);
+        setText(flag,position,answer);
+        while(check(flag)==false){
+            position = generator.nextInt(4);
+            if(flag[position] == true) continue;
+            Object randomDef = def[generator.nextInt(def.length)];
+            setText(flag,position,(String)randomDef);
+        
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
 
+            private void setColor(int i){
+        switch ( i ) {
+            
+    case  0:
+        jTextPane0.setForeground(Color.red);
+        break;
+    case  1:
+        jTextPane1.setForeground(Color.red);
+
+        break;
+    case  2:
+        jTextPane2.setForeground(Color.red);
+
+        break;
+    default:
+        jTextPane3.setForeground(Color.red);
+
+}
+    }
+            
+        private void setText(boolean[] flag,int i, String s){
+        switch ( i ) {
+    case  0:
+        flag[0] = true;
+        jTextPane0.setText(s);
+        break;
+    case  1:
+        flag[1] = true;
+        jTextPane1.setText(s);
+        break;
+    case  2:
+        flag[2] = true;
+        jTextPane2.setText(s);
+        break;
+    default:
+        flag[3] = true;
+        jTextPane3.setText(s);
+}
+    }
+        
+    private void jButton0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton0ActionPerformed
+        // TODO add your handling code here:
+        posUserAnswer = 0;
+        setColor(posAnswer);
+        if(posUserAnswer == posAnswer){
+           jLabel4.setText("Correct");
+        }
+        else {
+         jLabel4.setText("Incorrect");
+        }
+    }//GEN-LAST:event_jButton0ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        posUserAnswer = 1;
+                setColor(posAnswer);
+
+        if(posUserAnswer == posAnswer){
+             jLabel4.setText("Correct");
+        }        else {
+          jLabel4.setText("Incorrect");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        posUserAnswer = 2;
+                setColor(posAnswer);
+
+        if(posUserAnswer == posAnswer){
+             jLabel4.setText("Correct");
+        }        else {
+          jLabel4.setText("Incorrect");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        posUserAnswer = 3;
+                setColor(posAnswer);
+
+        if(posUserAnswer == posAnswer){
+            jLabel4.setText("Correct");
+        }        else {
+          jLabel4.setText("Incorrect");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private boolean check(boolean[] str){
+        return str[0] && str[1] && str[2] && str[3];
+    }
+
+    
     /**
      * @param args the command line arguments
      */
@@ -285,14 +448,15 @@ public class QuizByKeyword extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton0;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -307,9 +471,9 @@ public class QuizByKeyword extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JTextPane jTextPane0;
+    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JTextPane jTextPane2;
     private javax.swing.JTextPane jTextPane3;
-    private javax.swing.JTextPane jTextPane4;
-    private javax.swing.JTextPane jTextPane5;
-    private javax.swing.JTextPane jTextPane6;
     // End of variables declaration//GEN-END:variables
 }
