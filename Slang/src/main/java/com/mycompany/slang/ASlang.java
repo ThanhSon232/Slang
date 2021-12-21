@@ -20,6 +20,7 @@ public class ASlang extends javax.swing.JFrame {
      */
     public ASlang() {
         initComponents();
+                //tham khảo
                 this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new java.awt.event.WindowAdapter() {
     @Override

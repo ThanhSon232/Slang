@@ -19,6 +19,7 @@ public class EditSlangGUI extends javax.swing.JFrame {
     readData data = new readData();
     public EditSlangGUI() {
         initComponents();
+                //tham khảo
                 this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new java.awt.event.WindowAdapter() {
     @Override

@@ -23,6 +23,7 @@ public class AddSlangGUI extends javax.swing.JFrame {
     public AddSlangGUI() {
         initComponents();
         data.load();
+                //tham khảo
                 this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new java.awt.event.WindowAdapter() {
     @Override
